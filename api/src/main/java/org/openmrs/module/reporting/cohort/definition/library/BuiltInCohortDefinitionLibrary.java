@@ -23,6 +23,7 @@ import org.openmrs.module.reporting.cohort.definition.BirthAndDeathCohortDefinit
 import org.openmrs.module.reporting.cohort.definition.CohortDefinition;
 import org.openmrs.module.reporting.cohort.definition.EncounterCohortDefinition;
 import org.openmrs.module.reporting.cohort.definition.GenderCohortDefinition;
+import org.openmrs.module.reporting.cohort.definition.SqlCohortDefinition;
 import org.openmrs.module.reporting.cohort.definition.PersonAttributeCohortDefinition;
 import org.openmrs.module.reporting.cohort.definition.MappedParametersCohortDefinition;
 import org.openmrs.module.reporting.definition.library.BaseDefinitionLibrary;
@@ -106,7 +107,7 @@ public class BuiltInCohortDefinitionLibrary extends BaseDefinitionLibrary<Cohort
     }
 
     @DocumentedDefinition("encounterSearchAdvanced")
-    public CohortDefinition getAnyEncounterDuringPeriodWithOccurrence() {
+    public CohortDefinition getEncounterSearchAdvanced() {
         EncounterCohortDefinition cd = new EncounterCohortDefinition();
         cd.addParameter(new Parameter("onOrAfter", "reporting.parameter.startDate", Date.class));
         cd.addParameter(new Parameter("onOrBefore", "reporting.parameter.endDate", Date.class));
@@ -148,6 +149,13 @@ public class BuiltInCohortDefinitionLibrary extends BaseDefinitionLibrary<Cohort
         PersonAttributeCohortDefinition cd = new PersonAttributeCohortDefinition();
         cd.addParameter(new Parameter("attributeType", "reporting.parameter.attributeType", PersonAttributeType.class));
         cd.addParameter(new Parameter("values", "reporting.parameter.values", String.class, List.class, null));
+        return cd;
+    }
+
+    @DocumentedDefinition("sqlSearch")
+    public CohortDefinition getSqlSearch() {
+        SqlCohortDefinition cd = new SqlCohortDefinition();;
+        cd.addParameter(new Parameter("query", "reporting.parameter.query", String.class));
         return cd;
     }
 }
